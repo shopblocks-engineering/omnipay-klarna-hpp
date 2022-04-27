@@ -13,10 +13,6 @@
     },
     "authors": [
         {
-            "name": "Omnipay Contributors",
-            "homepage": "https://github.com/thephpleague/omnipay-sagepay/contributors"
-        },
-        {
             "name": "Shopblocks Engineering Team",
             "email": "engineering@shopblocks.com"
         }
