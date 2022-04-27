@@ -7,31 +7,6 @@ namespace Omnipay\KlarnaHPP\Traits;
  */
 trait GatewayParameters
 {
-    public $baseData = [
-        'locale',
-        'order_amount',
-        'order_tax_amount',
-        'order_lines',
-        'purchase_country',
-        'purchase_currency'
-    ];
-
-    /**
-     * @return array
-     */
-    protected function getBaseData(): array
-    {
-        $data = [];
-
-        foreach ($this->baseData as $key) {
-            $method = 'get' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
-
-            $data[$key] = $this->$method;
-        }
-
-        return $data;
-    }
-
     /**
      * @return mixed
      */

@@ -7,22 +7,20 @@ use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
- * Class StartCreditSessionResponse
+ * Class KPSessionResponse
+ *
+ * @package Omnipay\KlarnaHPP\Message
  */
-class StartCreditSessionResponse extends AbstractResponse implements ResponseInterface
+class KPSessionResponse extends AbstractResponse implements ResponseInterface
 {
     public $request;
     public $response;
     public $responseBody;
 
-    /**
-     * @param RequestInterface $request
-     * @param $response
-     */
     public function __construct(RequestInterface $request, $response)
     {
-        $this->response = $response;
         $this->request = $request;
+        $this->response = $response;
         $this->responseBody = json_decode($response->getBody()->getContents());
     }
 

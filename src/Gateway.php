@@ -34,8 +34,15 @@ class Gateway extends AbstractGateway
     /**
      * Start a new credit session
      */
-    public function startCreditSession(array $parameters = [])
+    public function startKPSession(array $parameters = [])
     {
-        return $this->createRequest('\Omnipay\KlarnaPayments\Message\StartCreditSessionRequest', $parameters);
+        return $this->createRequest('\Omnipay\KlarnaPayments\Message\KPSessionRequest', $parameters);
+    }
+
+    public function purchase(array $parameters = [])
+    {
+        dd($parameters);
+
+        return $this->createRequest('\Omnipay\KlarnaPayments\Message\PurchaseRequest', $parameters);
     }
 }
