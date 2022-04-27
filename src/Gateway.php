@@ -3,12 +3,15 @@
 namespace Omnipay\KlarnaHPP;
 
 use Omnipay\Common\AbstractGateway;
+use Omnipay\KlarnaHPP\Traits\GatewayParameters;
 
 /**
  * Class Gateway
  */
 class Gateway extends AbstractGateway
 {
+    use GatewayParameters;
+
     /**
      * @return string
      */
