@@ -1,5 +1,5 @@
 {
-    "name": "shopblocks-engineering/omnipay-klarna-checkout",
+    "name": "shopblocks-engineering/omnipay-klarna-hpp",
     "type": "library",
     "description": "Klarna HPP for Omnipay payment processing library",
     "keywords": ["Klarna Checkout", "Omnipay", "Shopblocks", "Shopblocks Engineering"],
