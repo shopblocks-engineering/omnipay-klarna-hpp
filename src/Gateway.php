@@ -41,7 +41,7 @@ class Gateway extends AbstractGateway
 
     public function purchase(array $parameters = [])
     {
-        dd($parameters);
+        dd($this->createRequest('\Omnipay\KlarnaPayments\Message\KPSessionRequest', $parameters));
 
         return $this->createRequest('\Omnipay\KlarnaPayments\Message\PurchaseRequest', $parameters);
     }
