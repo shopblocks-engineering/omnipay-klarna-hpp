@@ -4,6 +4,7 @@ namespace Omnipay\KlarnaHPP\Message;
 
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\KlarnaHPP\Traits\GatewayParameters;
+use Omnipay\Common\Exception\InvalidRequestException;
 
 /**
  * Class BaseRequest

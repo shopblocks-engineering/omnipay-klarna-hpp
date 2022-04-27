@@ -2,8 +2,6 @@
 
 namespace Omnipay\KlarnaHPP\Message;
 
-use Omnipay\Common\Message\ResponseInterface;
-
 /**
  * Class StartCreditSessionRequest
  */

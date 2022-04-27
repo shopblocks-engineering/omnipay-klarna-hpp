@@ -8,7 +8,7 @@
     "autoload": {
         "psr-4" : {
             "Omnipay\\KlarnaHPP\\" : "src/",
-            "Omnipay\\KlarnaHPP\\Tests" : "tests/"
+            "Omnipay\\KlarnaHPP\\Tests\\" : "tests/"
         }
     },
     "authors": [
@@ -23,14 +23,7 @@
         "ext-json": "*"
     },
     "require-dev": {
-        "omnipay/tests": "^4.1"
-    },
-    "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "composer/package-versions-deprecated": true
-        }
+        "omnipay/tests": "^3"
     },
     "extra": {
         "branch-alias": {
@@ -38,3 +31,42 @@
         }
     }
 }
+
+{
+    "name": "shopblocks-engineering/omnipay-cardstream",
+    "type": "library",
+    "description": "Cardstream payment gateway driver for the Omnipay 3.x payment processing library",
+    "keywords": [
+        "cardstream",
+        "gateway",
+        "merchant",
+        "omnipay",
+        "pay",
+        "payment"
+    ],
+    "homepage": "https://github.com/shopblocks-engineering/omnipay-cardstream",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Shopblocks Engineering",
+            "email": "support@shopblocks.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Omnipay\\Cardstream\\": "src/"
+        }
+    },
+    "require": {
+        "omnipay/common": "^3"
+    },
+    "require-dev": {
+        "omnipay/tests": "^3"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0.x-dev"
+        }
+    }
+}
+
