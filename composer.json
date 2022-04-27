@@ -1,0 +1,39 @@
+{
+    "name": "shopblocks-engineering/omnipay-klarna-checkout",
+    "type": "library",
+    "description": "Klarna HPP for Omnipay payment processing library",
+    "keywords": ["Klarna Checkout", "Omnipay", "Shopblocks", "Shopblocks Engineering"],
+    "homepage": "https://github.com/shopblocks-engineering/omnipay-klarna-hpp",
+    "license": "MIT",
+    "autoload": {
+        "psr-4" : {
+            "Omnipay\\KlarnaHPP\\" : "src/",
+            "Omnipay\\KlarnaHPP\\Tests" : "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Omnipay Contributors",
+            "homepage": "https://github.com/thephpleague/omnipay-sagepay/contributors"
+        },
+        {
+            "name": "Shopblocks Engineering Team",
+            "email": "engineering@shopblocks.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1|^7.3|^8",
+        "omnipay/common": "~3.0",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "omnipay/tests": "^4.1"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "composer/package-versions-deprecated": true
+        }
+    }
+}
