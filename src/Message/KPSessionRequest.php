@@ -23,15 +23,13 @@ class KPSessionRequest extends BaseRequest
 
     public function getData()
     {
-        $data = $this->getBaseData();
-        return $data;
+        return $this->getBaseData();
     }
 
     public function getEndpoint()
     {
-        $region = $this->getRegion();
-        $testMode = $this->getTestMode();
-        $base = static::getBaseEndpoint($region, $testMode);
+        $base = static::getBaseEndpoint($this->getRegion(), $this->getTestMode());
+
         return $base . 'payments/v1/sessions';
     }
 
