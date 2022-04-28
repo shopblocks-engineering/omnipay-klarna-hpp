@@ -154,7 +154,7 @@ trait GatewayParameters
     /**
      * @return mixed
      */
-    public function getKlarnaUsername()
+    public function getUsername()
     {
         return $this->getParameter('klarna_username');
     }
@@ -164,7 +164,7 @@ trait GatewayParameters
      *
      * @return mixed
      */
-    public function setKlarnaUsername($value)
+    public function setUsername($value)
     {
         return $this->setParameter('klarna_username', $value);
     }
@@ -172,7 +172,7 @@ trait GatewayParameters
     /**
      * @return mixed
      */
-    public function getKlarnaPassword()
+    public function getPassword()
     {
         return $this->getParameter('klarna_password');
     }
@@ -182,7 +182,7 @@ trait GatewayParameters
      *
      * @return mixed
      */
-    public function setKlarnaPassword($value)
+    public function setPassword($value)
     {
         return $this->setParameter('klarna_password', $value);
     }
@@ -204,4 +204,39 @@ trait GatewayParameters
     {
         return $this->setParameter('order_tax_amount', $value);
     }
+
+    /**
+     * @return string
+     */
+    public function getKPSessionId(): string
+    {
+        return $this->getParameter('kp_session_id');
+    }
+
+    /**
+     * @param $value
+     *
+     * @return mixed
+     */
+    public function setKPSessionId($value)
+    {
+        return $this->setParameter('kp_session_id', $value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getKPToken(): string
+    {
+        return $this->getParameter('kp_token');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function setKPToken(string $value)
+    {
+        return $this->setParameter('kp_token', $value);
+    }
+
 }

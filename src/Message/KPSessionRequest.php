@@ -9,7 +9,7 @@ namespace Omnipay\KlarnaHPP\Message;
  */
 class KPSessionRequest extends BaseRequest
 {
-    protected function getBaseData(): array
+    public function getData(): array
     {
         $data['locale'] = $this->getLocale();
         $data['order_amount'] = $this->getOrderAmount();
@@ -21,11 +21,6 @@ class KPSessionRequest extends BaseRequest
         return $data;
     }
 
-    public function getData()
-    {
-        return $this->getBaseData();
-    }
-
     public function getEndpoint()
     {
         $base = static::getBaseEndpoint($this->getRegion(), $this->getTestMode());
@@ -33,23 +28,17 @@ class KPSessionRequest extends BaseRequest
         return $base . 'payments/v1/sessions';
     }
 
-    public function getHttpMethod()
-    {
-        return 'POST';
-    }
-
     public function getHeaders(): array
     {
         return [
             'Content-Type' => 'application/json',
-            'Authorization' => 'Basic ' . base64_encode($this->getKlarnaUsername() . ':' . $this->getKlarnaPassword()),
+            'Authorization' => 'Basic ' . base64_encode($this->getUsername() . ':' . $this->getPassword()),
         ];
     }
 
-    public function sendData($data)
+    public function sendData($data): KPSessionResponse
     {
-        $response = $this->httpClient->request(
-            $this->getHttpMethod(),
+        $response = $this->httpClient->request('POST',
             $this->getEndpoint(),
             $this->getHeaders(),
             json_encode($data)

@@ -31,6 +31,14 @@ abstract class BaseRequest extends AbstractRequest
         'oceania' => 'https://api-oc.playground.klarna.com/'
     ];
 
+    static public $returnUrls = [
+        'success' => '',
+        'cancel' => '',
+        'back' => '',
+        'failure' => '',
+        'error' => ''
+    ];
+
     /**
      * Return the base endpoint
      *

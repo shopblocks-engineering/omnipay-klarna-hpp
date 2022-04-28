@@ -13,9 +13,9 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class KPSessionResponse extends AbstractResponse implements ResponseInterface
 {
-    public $request;
-    public $response;
-    public $responseBody;
+    protected $request;
+    protected $response;
+    protected $responseBody;
 
     public function __construct(RequestInterface $request, $response)
     {
@@ -24,68 +24,49 @@ class KPSessionResponse extends AbstractResponse implements ResponseInterface
         $this->responseBody = json_decode($response->getBody()->getContents());
     }
 
-    public function getRequest()
+    /**
+     * @return string|null
+     */
+    public function getClientToken(): ?string
     {
-        return $this->request;
-    }
-
-    public function getData()
-    {
-        return $this->responseBody;
-    }
-
-    public function getCode()
-    {
-        return $this->response->getStatusCode();
-    }
-
-    public function getMessage()
-    {
-        return "NOT IMPLEMENTED";
-    }
-
-    public function isCancelled()
-    {
-        return false;
+        return $this->responseBody->client_token ?? null;
     }
 
     /**
-     * Get the required redirect method (either GET or POST).
-     *
-     * @return string
+     * @return string|null
      */
-    public function getRedirectMethod()
-    {
-        return 'INSTANCE';
-    }
-
-    public function getResponseBody()
-    {
-        return $this->responseBody;
-    }
-
-    /**
-     * Does the response require a redirect?
-     *
-     * @return boolean
-     */
-    public function isRedirect()
-    {
-        return false;
-    }
-
-    public function isSuccessful()
-    {
-        return $this->getCode() == 200;
-    }
-
-    public function getTransactionReference()
+    public function getSessionId(): ?string
     {
         return $this->responseBody->session_id ?? null;
     }
 
-    public function getTransactionId(): ?string
+
+    /**
+     * @return array|null
+     */
+    public function getPaymentMethodCategories(): ?array
     {
-        return $this->data['notavailable'] ?? null;
+        return $this->responseBody->payment_method_categories ?? null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getData(): array
+    {
+        $response = [];
+
+        if ($this->isSuccessful()) {
+            $response['session_id'] = $this->getSessionId();
+            $response['client_token'] = $this->getClientToken();
+            $response['payment_method_categories'] = $this->getPaymentMethodCategories();
+        }
+
+        return $response;
+    }
+
+    public function isSuccessful()
+    {
+        return $this->response->getStatusCode() == 200;
     }
 }
