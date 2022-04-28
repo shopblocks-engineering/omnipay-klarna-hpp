@@ -87,6 +87,7 @@ trait GatewayParameters
         return $this->getParameter('purchase_currency');
     }
 
+
     /**
      * @param $value
      *
@@ -238,5 +239,76 @@ trait GatewayParameters
     {
         return $this->setParameter('kp_token', $value);
     }
+
+    public function setRedirectUrls(array $value)
+    {
+        return $this->setParameter('redirect_urls', $value);
+    }
+
+    public function getRedirectUrls(): array
+    {
+        return $this->getParameter('redirect_urls');
+    }
+
+    public function setBillingAddress(array $value)
+    {
+        return $this->setParameter('billing_address', $value);
+    }
+
+    public function getBillingAddress(): array
+    {
+        return $this->getParameter('billing_address');
+    }
+
+    public function setDeliveryAddress(array $value)
+    {
+        return $this->setParameter('delivery_address', $value);
+    }
+
+    public function getDeliveryAddress(): ?array
+    {
+        return $this->getParameter('delivery_address');
+    }
+
+    public function hasDeliveryAddress(): bool
+    {
+        return (bool) !empty($this->getDeliveryAddress);
+    }
+
+    public function setMerchantReference1(string $value)
+    {
+        return $this->setParameter('merchant_reference1', $value);
+    }
+
+    public function getMerchantReference1(): string
+    {
+        return $this->getParameter('merchant_reference1');
+    }
+
+    public function setMerchantReference2(string $value)
+    {
+        return $this->setParameter('merchant_reference2', $value);
+    }
+
+    public function getMerchantReference2(): string
+    {
+        return $this->getParameter('merchant_reference2');
+    }
+
+    public function hasOptions(): bool
+    {
+        return (bool) !empty($this->getOptions());
+    }
+
+    public function getOptions(): ?array
+    {
+        return $this->getParameter('options');
+    }
+
+    public function setOptions(array $value)
+    {
+        return $this->setParameter('options', $value);
+    }
+
 
 }

@@ -23,13 +23,13 @@ class HPPSessionRequest extends BaseRequest
     {
         $base = static::getBaseEndpoint($this->getRegion(), $this->getTestMode());
 
-        return $base . '/payments/v1/sessions/' . $this->getKPSessionId();
+        return $base . 'payments/v1/sessions/' . $this->getKPSessionId();
     }
 
     public function getData(): array
     {
         $data['payment_session_url'] = $this->getSessionURL();
-        $data['merchant_urls'] = self::$returnUrls;
+        $data['merchant_urls'] = $this->getRedirectUrls();
 
         return $data;
     }
@@ -38,7 +38,7 @@ class HPPSessionRequest extends BaseRequest
     {
         return [
             'Content-Type' => 'application/json',
-            'Authorization' => 'Basic ' . $this->getKPToken(),
+            'Authorization' => 'Basic ' . base64_encode($this->getUsername() . ':' . $this->getPassword()),
         ];
     }
 
@@ -47,8 +47,10 @@ class HPPSessionRequest extends BaseRequest
         $response = $this->httpClient->request('POST',
             $this->getEndpoint(),
             $this->getHeaders(),
-            json_encode($data)
+            json_encode($this->getData())
         );
+
+        dd(json_decode($response->getBody()->getContents()));
 
         return new HPPSessionResponse($this, $response);
     }
