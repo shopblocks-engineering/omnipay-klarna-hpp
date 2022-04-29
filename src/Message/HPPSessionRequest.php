@@ -50,8 +50,6 @@ class HPPSessionRequest extends BaseRequest
             json_encode($this->getData())
         );
 
-        dd(json_decode($response->getBody()->getContents()));
-
         return new HPPSessionResponse($this, $response);
     }
 }

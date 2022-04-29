@@ -3,15 +3,15 @@
 namespace Omnipay\KlarnaHPP\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
+use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Message\RequestInterface;
-use Omnipay\Common\Message\ResponseInterface;
 
 /**
  * Class HPPSessionRequest
  *
  * @package Omnipay\KlarnaHPP\Message
  */
-class HPPSessionResponse extends AbstractResponse implements ResponseInterface
+class HPPSessionResponse extends AbstractResponse implements RedirectResponseInterface
 {
     public $request;
     public $response;
@@ -24,20 +24,28 @@ class HPPSessionResponse extends AbstractResponse implements ResponseInterface
         $this->responseBody = json_decode($response->getBody()->getContents());
     }
 
-    /**
-     * @return array
-     */
-    public function getData(): array
+    public function getRedirectUrl(): string
     {
-        $response = [];
-        if ($this->isSuccessful()) {
-            dd($this->responseBody);
-        }
-        return $response;
+        return $this->responseBody->redirect_url;
+    }
+
+    public function getRedirectMethod(): string
+    {
+        return 'POST';
+    }
+
+    public function isRedirect(): bool
+    {
+        return true;
+    }
+
+    public function getRedirectData(): ?array
+    {
+        return $this->getData();
     }
 
     public function isSuccessful()
     {
-        return $this->response->getStatusCode() == 200;
+        return false;
     }
 }

@@ -310,5 +310,13 @@ trait GatewayParameters
         return $this->setParameter('options', $value);
     }
 
+    public function setHppUrl(string $value)
+    {
+        return $this->setParameter('hpp_url', $value);
+    }
 
+    public function getHppUrl(): string
+    {
+        return $this->getParameter('hpp_url');
+    }
 }
