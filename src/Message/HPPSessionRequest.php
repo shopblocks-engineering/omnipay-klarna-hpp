@@ -16,6 +16,15 @@ class HPPSessionRequest extends BaseRequest
         return $base . 'hpp/v1/sessions';
     }
 
+    public function getHeaders(): array
+    {
+        return [
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Basic ' . base64_encode($this->getUsername() . ':' . $this->getPassword()),
+            'Cache-Control' => 'no-cache'
+        ];
+    }
+
     /**
      * @return string
      */
@@ -32,14 +41,6 @@ class HPPSessionRequest extends BaseRequest
         $data['merchant_urls'] = $this->getRedirectUrls();
 
         return $data;
-    }
-
-    public function getHeaders(): array
-    {
-        return [
-            'Content-Type' => 'application/json',
-            'Authorization' => 'Basic ' . base64_encode($this->getUsername() . ':' . $this->getPassword()),
-        ];
     }
 
     public function sendData($data): HPPSessionResponse

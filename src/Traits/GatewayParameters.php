@@ -209,6 +209,42 @@ trait GatewayParameters
     /**
      * @return string
      */
+    public function getSessionId(): string
+    {
+        return $this->getParameter('session_id');
+    }
+
+    /**
+     * @param $value
+     *
+     * @return mixed
+     */
+    public function setSessionId($value)
+    {
+        return $this->setParameter('session_id', $value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderRef(): string
+    {
+        return $this->getParameter('order_ref');
+    }
+
+    /**
+     * @param $value
+     *
+     * @return mixed
+     */
+    public function setOrderRef($value)
+    {
+        return $this->setParameter('order_ref', $value);
+    }
+
+    /**
+     * @return string
+     */
     public function getKPSessionId(): string
     {
         return $this->getParameter('kp_session_id');

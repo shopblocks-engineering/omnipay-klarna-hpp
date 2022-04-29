@@ -31,7 +31,7 @@ class HPPSessionResponse extends AbstractResponse implements RedirectResponseInt
 
     public function getRedirectMethod(): string
     {
-        return 'POST';
+        return 'GET';
     }
 
     public function isRedirect(): bool

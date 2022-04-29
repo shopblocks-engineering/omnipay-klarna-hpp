@@ -3,6 +3,9 @@
 namespace Omnipay\KlarnaHPP;
 
 use Omnipay\Common\AbstractGateway;
+use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Common\Message\RequestInterface;
+use Omnipay\KlarnaHPP\Message\CompletePurchaseRequest;
 use Omnipay\KlarnaHPP\Message\HPPSessionRequest;
 use Omnipay\KlarnaHPP\Message\KPSessionRequest;
 use Omnipay\KlarnaHPP\Traits\GatewayParameters;
@@ -39,9 +42,9 @@ class Gateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return \Omnipay\Common\Message\AbstractRequest
+     * @return AbstractRequest
      */
-    public function purchase(array $parameters = [])
+    public function purchase(array $parameters = []): RequestInterface
     {
         $kpSession = $this->createRequest(KPSessionRequest::class, $parameters);
         $response = $kpSession->sendData($parameters);
@@ -50,5 +53,14 @@ class Gateway extends AbstractGateway
         $this->setKPToken($response->getData()['client_token']);
 
         return $this->createRequest(HPPSessionRequest::class, $parameters);
+    }
+
+    public function completePurchase(array $parameters = []): RequestInterface
+    {
+//        $request = $this->createRequest(CompletePurchaseRequest::class, $parameters);
+//        $response = $request->sendData($parameters);
+
+
+        return $this->createRequest(CompletePurchaseRequest::class, $parameters);
     }
 }
