@@ -170,6 +170,16 @@ trait GatewayParameters
         return $this->setParameter('klarna_username', $value);
     }
 
+    public function setOrderMode(string $value)
+    {
+        return $this->setParameter('order_mode', $value);
+    }
+
+    public function getOrderMode(): string
+    {
+        return $this->getParameter('order_mode');
+    }
+
     /**
      * @return mixed
      */

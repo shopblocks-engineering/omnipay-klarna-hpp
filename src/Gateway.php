@@ -57,10 +57,23 @@ class Gateway extends AbstractGateway
 
     public function completePurchase(array $parameters = []): RequestInterface
     {
-//        $request = $this->createRequest(CompletePurchaseRequest::class, $parameters);
-//        $response = $request->sendData($parameters);
-
-
         return $this->createRequest(CompletePurchaseRequest::class, $parameters);
+    }
+
+    /**
+     * Authorize will pass the request to purchase as the process is the same until after the checkout process
+     *
+     * @param array $options
+     *
+     * @return RequestInterface
+     */
+    public function authorize(array $options = array()): RequestInterface
+    {
+        return $this->purchase($options);
+    }
+
+    public function completeAuthorize(array $options = array()): RequestInterface
+    {
+        // TODO: Implement completeAuthorize() method.
     }
 }

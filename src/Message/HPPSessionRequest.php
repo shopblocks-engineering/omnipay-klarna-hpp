@@ -39,6 +39,10 @@ class HPPSessionRequest extends BaseRequest
     {
         $data['payment_session_url'] = $this->getSessionURL();
         $data['merchant_urls'] = $this->getRedirectUrls();
+        $data['options'] = [
+            'place_order_mode' => $this->getOrderMode(),
+            'page_title' => 'testing order'
+        ];
 
         return $data;
     }
