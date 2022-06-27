@@ -2,16 +2,14 @@
 
 namespace Omnipay\KlarnaHPP\Message;
 
-use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
-use Omnipay\Common\Message\ResponseInterface;
 
 /**
  * Class KPSessionResponse
  *
  * @package Omnipay\KlarnaHPP\Message
  */
-class KPSessionResponse extends AbstractResponse implements ResponseInterface
+class KCSessionResponse extends KPSessionResponse
 {
     protected $request;
     protected $response;
@@ -55,12 +53,8 @@ class KPSessionResponse extends AbstractResponse implements ResponseInterface
     public function getData(): array
     {
         $response = [];
-
         if ($this->isSuccessful()) {
             $response['session_id'] = $this->getSessionId();
-            $response['client_token'] = $this->getClientToken();
-            $response['payment_method_categories'] = $this->getPaymentMethodCategories();
-            $response['paymentSessionUrl'] = $this->request->getData()['endpoint'] . "/{$this->getSessionId()}";
         }
 
         return $response;
@@ -68,6 +62,6 @@ class KPSessionResponse extends AbstractResponse implements ResponseInterface
 
     public function isSuccessful()
     {
-        return $this->response->getStatusCode() == 200;
+        return in_array($this->response->getStatusCode(), [200, 201]);
     }
 }

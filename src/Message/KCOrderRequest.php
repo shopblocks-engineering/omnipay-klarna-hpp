@@ -7,10 +7,14 @@ namespace Omnipay\KlarnaHPP\Message;
  *
  * @package Omnipay\KlarnaHPP\Message
  */
-class KPSessionRequest extends BaseRequest
+class KCOrderRequest extends BaseRequest
 {
     public function getData(): array
     {
+        $data = [
+            'merchant_urls' => $this->getRedirectUrls(),
+        ];
+
         $data['billing_address'] = $this->getBillingAddress();
 
         if ($this->hasDeliveryAddress()) {
@@ -29,7 +33,6 @@ class KPSessionRequest extends BaseRequest
         $data['order_tax_amount'] = $this->getOrderTaxAmount();
         $data['purchase_country'] = $this->getPurchaseCountry();
         $data['purchase_currency'] = $this->getPurchaseCurrency();
-        $data['endpoint'] = $this->getEndpoint();
         $data['locale'] = $this->getLocale();
 
         return $data;
@@ -39,7 +42,7 @@ class KPSessionRequest extends BaseRequest
     {
         $base = static::getBaseEndpoint($this->getRegion(), $this->getTestMode());
 
-        return $base . 'payments/v1/sessions';
+        return $base . "checkout/v3/orders";
     }
 
     public function getHeaders(): array
@@ -50,14 +53,16 @@ class KPSessionRequest extends BaseRequest
         ];
     }
 
-    public function sendData($data): KPSessionResponse
+    public function sendData($data): KCOrderResponse
     {
-        $response = $this->httpClient->request('POST',
+        $data = $this->getData();
+        $response = $this->httpClient->request(
+            'POST',
             $this->getEndpoint(),
             $this->getHeaders(),
-            json_encode($this->getData())
+            json_encode($data)
         );
 
-        return new KPSessionResponse($this, $response);
+        return new KCOrderResponse($this, $response);
     }
 }
