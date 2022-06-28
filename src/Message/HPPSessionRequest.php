@@ -25,14 +25,17 @@ class HPPSessionRequest extends BaseRequest
         ];
     }
 
+    public function setPaymentSessionUrl(string $sessionUrl)
+    {
+        $this->setParameter('paymentSessionUrl', $sessionUrl);
+    }
+
     /**
      * @return string
      */
     public function getSessionURL(): string
     {
-        $base = static::getBaseEndpoint($this->getRegion(), $this->getTestMode());
-
-        return $base . 'payments/v1/sessions/' . $this->getKPSessionId();
+        return $this->getParameter('paymentSessionUrl');
     }
 
     public function getData(): array

@@ -365,4 +365,14 @@ trait GatewayParameters
     {
         return $this->getParameter('hpp_url');
     }
+
+    public function setVersion(string $version)
+    {
+        $this->setParameter('version', $version);
+    }
+
+    public function getVersion()
+    {
+        return $this->getParameter('version');
+    }
 }
