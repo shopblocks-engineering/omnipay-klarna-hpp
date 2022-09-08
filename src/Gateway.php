@@ -12,6 +12,7 @@ use Omnipay\KlarnaHPP\Message\KCOrderRequest;
 use Omnipay\KlarnaHPP\Message\KCOrderResponse;
 use Omnipay\KlarnaHPP\Message\KCSessionRequest;
 use Omnipay\KlarnaHPP\Message\KCSessionResponse;
+use Omnipay\KlarnaHPP\Message\KPRefundRequest;
 use Omnipay\KlarnaHPP\Message\KPSessionRequest;
 use Omnipay\KlarnaHPP\Message\KPSessionResponse;
 use Omnipay\KlarnaHPP\Traits\GatewayParameters;
@@ -109,5 +110,10 @@ class Gateway extends AbstractGateway
     public function completeAuthorize(array $options = array()): RequestInterface
     {
         // TODO: Implement completeAuthorize() method.
+    }
+
+    public function refund(array $parameters = []): RequestInterface
+    {
+        return $this->createRequest(KPRefundRequest::class, $parameters);
     }
 }

@@ -375,4 +375,24 @@ trait GatewayParameters
     {
         return $this->getParameter('version');
     }
+
+    public function getRefundAmount()
+    {
+        return $this->getParameter('refund_amount');
+    }
+
+    public function setRefundAmount(int $value)
+    {
+        $this->setParameter('refund_amount', $value);
+    }
+
+    public function getRefundReason()
+    {
+        return $this->getParameter('refund_reason');
+    }
+
+    public function setRefundReason(string $value)
+    {
+        $this->setParameter('refund_reason', $value);
+    }
 }
