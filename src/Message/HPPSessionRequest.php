@@ -44,7 +44,7 @@ class HPPSessionRequest extends BaseRequest
         $data['merchant_urls'] = $this->getRedirectUrls();
         $data['options'] = [
             'place_order_mode' => $this->getOrderMode(),
-            'page_title' => 'testing order'
+            'page_title' => 'Order #' . ($this->getOrderRef() ?? '')
         ];
 
         return $data;
