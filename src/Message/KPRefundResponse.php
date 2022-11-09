@@ -16,7 +16,7 @@ class KPRefundResponse extends AbstractResponse implements ResponseInterface
     {
         $this->request = $request;
         $this->response = $response;
-        $this->responseBody = json_decode($response->getBody()->getContents());
+        $this->responseBody = json_decode($response->getBody()->getContents(), true);
     }
 
     /**
@@ -24,7 +24,7 @@ class KPRefundResponse extends AbstractResponse implements ResponseInterface
      */
     public function getData(): array
     {
-        $response = [];
+        $response = $this->responseBody;
 
         if ($this->isSuccessful()) {
             $response['refund_id'] = $this->getRefundId();
@@ -40,6 +40,14 @@ class KPRefundResponse extends AbstractResponse implements ResponseInterface
 
     public function isSuccessful()
     {
-        return $this->response->getStatusCode() == 201;
+        if ($this->response->getStatusCode() == 201) {
+            return true;
+        }
+
+        return [
+            'error_code' => $this->responseBody['error_code'],
+            'error_message' => $this->responseBody['error_messages'],
+            'correlation_id' => $this->responseBody['correlation_id']
+        ];
     }
 }

@@ -12,6 +12,7 @@ use Omnipay\KlarnaHPP\Message\KCOrderRequest;
 use Omnipay\KlarnaHPP\Message\KCOrderResponse;
 use Omnipay\KlarnaHPP\Message\KCSessionRequest;
 use Omnipay\KlarnaHPP\Message\KCSessionResponse;
+use Omnipay\KlarnaHPP\Message\KPRefundOrderCheckRequest;
 use Omnipay\KlarnaHPP\Message\KPRefundRequest;
 use Omnipay\KlarnaHPP\Message\KPSessionRequest;
 use Omnipay\KlarnaHPP\Message\KPSessionResponse;
@@ -96,6 +97,16 @@ class Gateway extends AbstractGateway
     }
 
     /**
+     * Currently HPP only
+     *
+     * @return RequestInterface
+     */
+    public function order(array $parameters = []): RequestInterface
+    {
+        return $this->createRequest(KPRefundOrderCheckRequest::class, $parameters);
+    }
+
+    /**
      * Authorize will pass the request to purchase as the process is the same until after the checkout process
      *
      * @param array $options
@@ -106,6 +117,7 @@ class Gateway extends AbstractGateway
     {
         return $this->purchase($options);
     }
+
 
     public function completeAuthorize(array $options = array()): RequestInterface
     {
