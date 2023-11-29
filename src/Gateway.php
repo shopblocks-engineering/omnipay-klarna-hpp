@@ -7,6 +7,7 @@ use Omnipay\Common\Exception\RuntimeException;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\KlarnaHPP\Message\CompletePurchaseRequest;
+use Omnipay\KlarnaHPP\Message\HPPSessionCheckRequest;
 use Omnipay\KlarnaHPP\Message\HPPSessionRequest;
 use Omnipay\KlarnaHPP\Message\KCOrderRequest;
 use Omnipay\KlarnaHPP\Message\KCOrderResponse;
@@ -94,6 +95,11 @@ class Gateway extends AbstractGateway
     public function completePurchase(array $parameters = []): RequestInterface
     {
         return $this->createRequest(CompletePurchaseRequest::class, $parameters);
+    }
+
+    public function session(array $parameters = []): RequestInterface
+    {
+        return $this->createRequest(HPPSessionCheckRequest::class, $parameters);
     }
 
     /**
