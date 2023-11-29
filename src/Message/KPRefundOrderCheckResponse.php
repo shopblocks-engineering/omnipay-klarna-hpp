@@ -33,7 +33,7 @@ class KPRefundOrderCheckResponse extends AbstractResponse implements ResponseInt
         $klarnaOrder = $this->responseBody;
 
         if (!in_array($this->response->getStatusCode(), [200, 201])) {
-            return $this->response->getStatusCode();
+            return false
         }
 
         $refundedAmount = 0;
