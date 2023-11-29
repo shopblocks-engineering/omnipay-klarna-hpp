@@ -31,6 +31,11 @@ class KPRefundOrderCheckResponse extends AbstractResponse implements ResponseInt
     public function isSuccessful()
     {
         $klarnaOrder = $this->responseBody;
+
+        if (!in_array($this->response->getStatusCode(), [200, 201])) {
+            return $this->response->getStatusCode();
+        }
+
         $refundedAmount = 0;
         if (!empty($klarnaOrder) && !empty($klarnaOrder['refunds'])) {
             foreach ($klarnaOrder['refunds'] as $refund) {
