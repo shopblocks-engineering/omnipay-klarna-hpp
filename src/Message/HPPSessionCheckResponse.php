@@ -12,7 +12,7 @@ class HPPSessionCheckResponse extends AbstractResponse implements ResponseInterf
     protected $response;
     protected $responseBody;
 
-    public function __construct(RequestInterface $request, $response, $refundAmount)
+    public function __construct(RequestInterface $request, $response)
     {
         $this->request = $request;
         $this->response = $response;

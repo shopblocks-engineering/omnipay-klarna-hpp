@@ -32,6 +32,6 @@ class HPPSessionCheckRequest extends BaseRequest
             json_encode($this->getData())
         );
 
-        return new HPPSessionCheckResponse($this, $response, $this->getRefundAmount());
+        return new HPPSessionCheckResponse($this, $response);
     }
 }
