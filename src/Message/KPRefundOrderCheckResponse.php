@@ -11,6 +11,7 @@ class KPRefundOrderCheckResponse extends AbstractResponse implements ResponseInt
     protected $request;
     protected $response;
     protected $responseBody;
+    protected $refundAmount;
 
     public function __construct(RequestInterface $request, $response, $refundAmount)
     {
@@ -30,7 +31,13 @@ class KPRefundOrderCheckResponse extends AbstractResponse implements ResponseInt
 
     public function isSuccessful()
     {
+        return $this->response->getStatusCode() == 200;
+    }
+
+    public function isRefundAllowed()
+    {
         $klarnaOrder = $this->responseBody;
+
         $refundedAmount = 0;
         if (!empty($klarnaOrder) && !empty($klarnaOrder['refunds'])) {
             foreach ($klarnaOrder['refunds'] as $refund) {
@@ -39,21 +46,41 @@ class KPRefundOrderCheckResponse extends AbstractResponse implements ResponseInt
         }
         $remainingAmount = $klarnaOrder['captured_amount'] - $refundedAmount;
 
-        // Order has already been fully refunded
-        if ($remainingAmount == 0) {
-            return [
-                'refundAmount' => 0
-            ];
+        // Order has already been fully refunded, or the requested refund amount is larger than the amount remaining.
+        if ($remainingAmount == 0 || $this->refundAmount > $remainingAmount) {
+            return false;
         }
 
-        // Handle if the amount to be refunded is greater than the amount remaining
-        if ($this->refundAmount > $remainingAmount) {
+        return true;
+    }
+
+    public function whyIsRefundNotAllowed()
+    {
+        $klarnaOrder = $this->responseBody;
+
+        $refundedAmount = 0;
+        if (!empty($klarnaOrder) && !empty($klarnaOrder['refunds'])) {
+            foreach ($klarnaOrder['refunds'] as $refund) {
+                $refundedAmount += $refund['refunded_amount'];
+            }
+        }
+        $remainingAmount = $klarnaOrder['captured_amount'] - $refundedAmount;
+
+        if ($remainingAmount == 0) {
+            return [
+                'error_code' => 'REFUND_NOT_ALLOWED',
+                'error_message' => 'This order has already been refunded. Please check your order in Klarna.'
+            ];
+        } else if ($this->refundAmount > $remainingAmount) {
             return [
                 'error_code' => 'REFUND_NOT_ALLOWED',
                 'error_message' => 'Unable to continue with refund as the amount remaining on the order in Klarna is less than the amount you are trying to refund. Please check your order in Klarna before trying again.'
             ];
         }
 
-        return $this->response->getStatusCode() == 200;
+        return [
+            'error_code' => 'REFUND_NOT_ALLOWED',
+            'error_message' => 'Unable to continue with refund. Please check your order in Klarna before trying again.'
+        ];
     }
 }
